@@ -1,5 +1,10 @@
 #!/usr/bin/python
 import curses
+from somaplayer import Somaplayer
+from time import sleep
+from datetime import datetime
+
+configuration_file = "config.json"
 
 msgs = []
 def log(msg):
@@ -68,6 +73,7 @@ class ContentWindow(Window):
         self.height = parent.height - 2
         self.window = parent.create_window(self.height, self.width, 1, 0)
         self.window.keypad(True)
+        self.window.nodelay(True)
 
     def render_content(self, content):
         self.window.clear()
@@ -92,7 +98,8 @@ class SomaUI:
     def create_window(self, height, width, x, y):
         return curses.newwin(height, width + 1, x, y)
 
-    def main(self, stdscr):
+    def main(self, stdscr, player):
+        self.player = player
         curses.curs_set(False)
         self.height, self.width = stdscr.getmaxyx()
 
@@ -103,7 +110,7 @@ class SomaUI:
         title.set_text("PYSOMA: The CLI Soma FM streamplayer (with Python & mplayer)")
         footer.set_text("c:select channel, j/k: move up/down, q:quit, s:stop, p:play")
 
-        data = []
+        data = [station['name'] for station in player.stations]
 
         content = Content()
         content.set_data(data)
@@ -122,7 +129,11 @@ class SomaUI:
                 continue
 
             elif key in [curses.KEY_ENTER, ord('\n')]: # Select
-                stdscr.clear()
+                index = content.selected
+                stations = player.stations
+                log("{0}. {1}".format(index, stations[index]['name']))
+                title.set_text("{0}: {1}".format(stations[index]['name'], stations[index]['description']))
+                player.play(index)
 
             elif key in [curses.KEY_UP, ord('j')]: # Up
                 content.selected_add(-1)
@@ -154,6 +165,7 @@ class SomaUI:
                 main.render_content(content)
 
             elif key in (27, ord('q')): # Quit
+                player.stop()
                 break
 
             title.refresh()
@@ -164,7 +176,11 @@ class SomaUI:
 
 try:
     ui = SomaUI()
-    curses.wrapper(ui.main)
+    player = Somaplayer(configuration_file)
+    curses.wrapper(ui.main, player)
+
+except KeyboardInterrupt:
+    pass
 
 finally:
     if len(msgs) > 0:
