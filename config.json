@@ -1,0 +1,160 @@
+{
+	"baseurl": "http://somafm.com/", 
+	"stations": [
+		{
+			"name": "Christmas Rocks!",
+			"feed": "xmasrocks",
+			"description": "Have your self an indie/alternative holiday season!"
+		},
+		{
+			"name": "Christmas Lounge",
+			"feed": "christmas", 
+			"description": "Chilled holiday grooves and classic winter lounge tracks. (Kid and Parent safe!)"
+		},
+		{
+			"name": "Xmas in Frisko (holiday)", 
+			"feed": "xmasinfrisko", 
+			"description": "SomaFM's wacky and eclectic holiday mix. Not for the easily offended."
+		},
+		{
+			"name": "Groove Salad (ambient/electronica)", 
+			"feed": "groovesalad", 
+			"description": "A nicely chilled plate of ambient/downtempo beats and grooves."
+		},
+		{
+			"name": "Lush (electronica)", 
+			"feed": "lush", 
+			"description": "Sensuous and mellow vocals mostly female with an electronic influence."
+		},
+		{
+			"name": "Earwaves (experimental)", 
+			"feed": "earwaves", 
+			"description": "Spanning the history of electronic and experimental music from the early pioneers to the latest innovators."
+		},
+		{
+			"name": "Deep Space One (ambient)", 
+			"feed": "deepspaceone", 
+			"description": "Deep ambient electronic experimental and space music. A soundtrack for inner and outer space exploration."
+		},
+		{
+			"name": "Drone Zone (ambient)", 
+			"feed": "dronezone", 
+			"description": "Served best chilled safe with most medications. Atmospheric textures with minimal beats."
+		},
+		{
+			"name": "PopTron (alternative)", 
+			"feed": "poptron", 
+			"description": "Electropop and indie dance rock with sparkle and pop."
+		},
+		{
+			"name": "DEF CON Radio (specials)", 
+			"feed": "events", 
+			"description": "Music for Hacking. From DEF CON 21 in Las Vegas."
+		},
+		{
+			"name": "Dub Step Beyond (electronica)", 
+			"feed": "dubstep", 
+			"description": "Dubstep Dub and Deep Bass. May damage speakers at high volume."
+		},
+		{
+			"name": "Space Station Soma (electronica)", 
+			"feed": "spacestation", 
+			"description": "Tune in turn on space out. Spaced-out ambient and mid-tempo electronica."
+		},
+		{
+			"name": "Mission Control (ambient/electronica)", 
+			"feed": "missioncontrol", 
+			"description": "Celebrating NASA and Space Explorers everywhere."
+		},
+		{
+			"name": "Indie Pop Rocks! (alternative)", 
+			"feed": "indiepop", 
+			"description": "New and classic favorite indie pop tracks."
+		},
+		{
+			"name": "Folk Forward (folk/alternative)", 
+			"feed": "folkfwd", 
+			"description": "Indie Folk Alt-folk and the occasional folk classics."
+		},
+		{
+			"name": "BAGeL Radio (alternative)", 
+			"feed": "bagel", 
+			"description": "What alternative rock radio should sound like."
+		},
+		{
+			"name": "Digitalis (electronica/alternative)", 
+			"feed": "digitalis", 
+			"description": "Digitally affected analog rock to calm the agitated heart."
+		},
+		{
+			"name": "Sonic Universe (jazz)", 
+			"feed": "sonicuniverse", 
+			"description": "Transcending the world of jazz with eclectic avant-garde takes on tradition."
+		},
+		{
+			"name": "Secret Agent (lounge)", 
+			"feed": "secretagent", 
+			"description": "The soundtrack for your stylish mysterious dangerous life. For Spies and PIs too!"
+		},
+		{
+			"name": "Suburbs of Goa (world)", 
+			"feed": "suburbsofgoa", 
+			"description": "Desi-influenced Asian world beats and beyond."
+		},
+		{
+			"name": "Boot Liquor (americana)", 
+			"feed": "bootliquor", 
+			"description": "Americana Roots music for Cowhands Cowpokes and Cowtippers"
+		},
+		{
+			"name": "Illinois Street Lounge (lounge)", 
+			"feed": "illstreet", 
+			"description": "Classic bachelor pad playful exotica and vintage music of tomorrow."
+		},
+		{
+			"name": "The Trip (electronica)", 
+			"feed": "thetrip", 
+			"description": "Progressive house/trance. Tip top tunes."
+		},
+		{
+			"name": "cliqhop idm (electronica)", 
+			"feed": "cliqhop", 
+			"description": "Blips'n'beeps backed mostly w/beats. Intelligent Dance Music."
+		},
+		{
+			"name": "Iceland Airwaves (alternative)", 
+			"feed": "airwaves", 
+			"description": "Music from bands who will be performing at Iceland Airwaves [explicit]"
+		},
+		{
+			"name": "Covers (eclectic)", 
+			"feed": "covers", 
+			"description": "Just covers. Songs you know by artists you don't. We've got you covered."
+		},
+		{
+			"name": "Underground 80s (alternative/electronica)", 
+			"feed": "u80s", 
+			"description": "Early 80s UK Synthpop and a bit of New Wave."
+		},
+		{
+			"name": "Beat Blender (electronica)", 
+			"feed": "beatblender", 
+			"description": "A late night blend of deep-house and downtempo chill."
+		},
+		{
+			"name": "Doomed (ambient/industrial)", 
+			"feed": "doomed", 
+			"description": "Dark industrial/ambient music for tortured souls."
+		},
+		{
+			"name": "Black Rock FM (eclectic)", 
+			"feed": "brfm", 
+			"description": "From the Playa to the world for the 2013 Burning Man festival"
+		},
+		{
+			"name": "SF 10-33 (ambient/news)", 
+			"feed": "sf1033", 
+			"description": "Ambient music mixed with the sounds of San Francisco public safety radio traffic."
+		}
+	]
+}
