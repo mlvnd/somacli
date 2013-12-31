@@ -72,8 +72,6 @@ class ContentWindow(Window):
         self.width = parent.width
         self.height = parent.height - 2
         self.window = parent.create_window(self.height, self.width, 1, 0)
-        self.window.keypad(True)
-        self.window.nodelay(True)
 
     def render_content(self, content):
         self.window.clear()
@@ -96,97 +94,104 @@ class ContentWindow(Window):
 
 class SomaUI:
     def create_window(self, height, width, x, y):
-        return curses.newwin(height, width + 1, x, y)
+        window = curses.newwin(height, width + 1, x, y)
+        window.keypad(True)
+        return window
 
     def main(self, stdscr, player):
         self.player = player
         curses.curs_set(False)
         self.height, self.width = stdscr.getmaxyx()
 
-        title = TitleWindow(self)
-        footer = FooterWindow(self)
-        main = ContentWindow(self)
+        self.title = TitleWindow(self)
+        self.footer = FooterWindow(self)
+        self.main = ContentWindow(self)
 
-        title.set_text("PYSOMA: The CLI Soma FM streamplayer (with Python & mplayer)")
-        footer.set_text("c:select channel, j/k: move up/down, q:quit, s:stop, p:play")
+        self.title.set_text("PYSOMA: The CLI Soma FM streamplayer (with Python & mplayer)")
+        self.footer.set_text("c:select channel, ENTER=select channel, j/k: move up/down, q:quit")
 
-        data = [station['name'] for station in player.stations]
+        stations = [station['name'] for station in player.stations]
+        history = player.history
 
-        content = Content()
-        content.set_data(data)
-
-        main.render_content(content)
-        title.refresh()
-        main.refresh()
-        footer.refresh()
+        self.content = Content()
+        self.content.set_data(stations)
+        player.set_call_back(self.update_display)
+        self.update_display()
 
         while True:
+            key = self.main.getch()
+            if key in [curses.KEY_ENTER, ord('\n')]: # Select
+                if self.content.data == stations:
+                    index = self.content.selected
+                    self.title.set_text("{0}: {1}".format(player.stations[index]['name'], player.stations[index]['description']))
+                    player.play(index)
+                    self.content.set_data(history)
+                    self.update_display()
 
-            key = main.getch()
-            #log("Key: " + str(key))
-            if key == -1: # No input
-                sleep(0.1)
-                continue
-
-            elif key in [curses.KEY_ENTER, ord('\n')]: # Select
-                index = content.selected
-                stations = player.stations
-                log("{0}. {1}".format(index, stations[index]['name']))
-                title.set_text("{0}: {1}".format(stations[index]['name'], stations[index]['description']))
-                player.play(index)
+            elif key == ord('c'):
+                self.content.set_data(stations)
+                self.update_display()
 
             elif key in [curses.KEY_UP, ord('j')]: # Up
-                content.selected_add(-1)
-                main.render_content(content)
+                self.content.selected_add(-1)
+                self.update_display()
             
             elif key in [curses.KEY_DOWN, ord('k')]: # Down
-                content.selected_add(1)
-                main.render_content(content)
+                self.content.selected_add(1)
+                self.update_display()
             
             elif key in [337, ord('J')]: # Shift up
-                content.offset_add(-1)
-                main.render_content(content)
+                self.content.offset_add(-1)
+                self.update_display()
             
             elif key in [336, ord('K')]: # Shift down
-                content.offset_add(1)
-                main.render_content(content)
+                self.content.offset_add(1)
+                self.update_display()
             
             elif key in [565, ord('J')]: # Control up
-                content.offset_add(-main.height)
-                main.render_content(content)
+                self.content.selected_add(-self.main.height  + 1)
+                self.update_display()
             
             elif key in [524, ord('K')]: # Control down
-                content.offset_add(main.height)
-                main.render_content(content)
-        
-            elif key == ord('p'):
-                data.append(str(len(data)))
-                content.set_data(data)
-                main.render_content(content)
+                self.content.selected_add(self.main.height - 1)
+                self.update_display()
+            
+            elif key == 27:
+                if self.content.data == stations:
+                    self.content.set_data(history)
+                    self.update_display()
+                else:
+                    player.stop()
+                    break
 
-            elif key in (27, ord('q')): # Quit
+            elif key == ord('q'): # Quit
                 player.stop()
                 break
 
-            title.refresh()
-            main.refresh()
-            footer.refresh()
 
-        return
+    def update_display(self):
+        self.main.render_content(self.content)
 
-try:
-    ui = SomaUI()
-    player = Somaplayer(configuration_file)
-    curses.wrapper(ui.main, player)
+        self.title.refresh()
+        self.main.refresh()
+        self.footer.refresh()
 
-except KeyboardInterrupt:
-    pass
 
-finally:
-    if len(msgs) > 0:
-        print "*" * 80
-        print 
-        for msg in msgs:
-            print msg
-        print
-        print "*" * 80
+if __name__ == "__main__":
+    try:
+        ui = SomaUI()
+        player = Somaplayer(configuration_file)
+        curses.wrapper(ui.main, player)
+
+    except KeyboardInterrupt:
+        log("KeyboardInterrupt!")
+        pass
+
+    finally:
+        if len(msgs) > 0:
+            print "*" * 80
+            print 
+            for msg in msgs:
+                print msg
+            print
+            print "*" * 80
