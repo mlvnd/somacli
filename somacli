@@ -108,7 +108,7 @@ class SomaUI:
         self.main = ContentWindow(self)
 
         self.title.set_text("PYSOMA: The CLI Soma FM streamplayer (with Python & mplayer)")
-        self.footer.set_text("c:select channel, ENTER=select channel, j/k: move up/down, q:quit")
+        self.footer.set_text("c:show stations, ENTER=select station, j/k: move up/down, q:quit")
 
         stations = [station['name'] for station in player.stations]
         history = player.history
