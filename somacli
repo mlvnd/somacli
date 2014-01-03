@@ -127,10 +127,10 @@ class SomaUI:
                     player.play(index)
                     self.content.set_data(history)
                     self.update_display()
+            
             elif key == curses.KEY_RESIZE:
                 log("Window resized: ")
                 log(stdscr.getmaxyx())
-
 
             elif key == ord('c'):
                 self.content.set_data(stations)
@@ -144,19 +144,19 @@ class SomaUI:
                 self.content.selected_add(1)
                 self.update_display()
             
-            elif key in [337, ord('J')]: # Shift up
+            elif key in [336, ord('K')]: # Shift up
                 self.content.offset_add(-1)
                 self.update_display()
             
-            elif key in [336, ord('K')]: # Shift down
+            elif key in [337, ord('J')]: # Shift down
                 self.content.offset_add(1)
                 self.update_display()
             
-            elif key in [565, ord('J')]: # Control up
+            elif key in [565]: # Control up
                 self.content.selected_add(-self.main.height  + 1)
                 self.update_display()
             
-            elif key in [524, ord('K')]: # Control down
+            elif key in [524]: # Control down
                 self.content.selected_add(self.main.height - 1)
                 self.update_display()
             
