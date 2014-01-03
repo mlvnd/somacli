@@ -127,6 +127,10 @@ class SomaUI:
                     player.play(index)
                     self.content.set_data(history)
                     self.update_display()
+            elif key == curses.KEY_RESIZE:
+                log("Window resized: ")
+                log(stdscr.getmaxyx())
+
 
             elif key == ord('c'):
                 self.content.set_data(stations)

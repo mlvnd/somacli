@@ -52,7 +52,7 @@ class Somaplayer:
     def stop(self):
         player = self.player_process
         if player != None:
-            os.killpg(player.pid, signal.SIGQUIT)
+            os.killpg(player.pid, signal.SIGTERM)
             player = None
         if self.timer:
             self.timer.cancel()
