@@ -1,10 +1,18 @@
 #!/usr/bin/python
+import os
+import sys
 import curses
 from somaplayer import Somaplayer
 from time import sleep
 from datetime import datetime
 
-configuration_file = "config.json"
+
+if os.path.islink(sys.argv[0]):
+	path = os.path.dirname(os.readlink(sys.argv[0]))
+else:
+	path = os.path.dirname(argv[0])
+
+configuration_file = path + "/config.json"
 
 msgs = []
 def log(msg):
@@ -129,8 +137,8 @@ class SomaUI:
                     self.update_display()
             
             elif key == curses.KEY_RESIZE:
-                log("Window resized: ")
-                log(stdscr.getmaxyx())
+                self.resize_display()
+                self.update_display()
 
             elif key == ord('c'):
                 self.content.set_data(stations)
@@ -179,6 +187,9 @@ class SomaUI:
         self.title.refresh()
         self.main.refresh()
         self.footer.refresh()
+
+    def resize_display(self):
+        self.height, self.width = stdscr.getmaxyx()
 
 
 if __name__ == "__main__":
