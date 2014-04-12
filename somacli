@@ -7,11 +7,7 @@ from time import sleep
 from datetime import datetime
 
 
-if os.path.islink(sys.argv[0]):
-	path = os.path.dirname(os.readlink(sys.argv[0]))
-else:
-	path = os.path.dirname(argv[0])
-
+path = os.path.dirname(os.path.realpath(__file__))
 configuration_file = path + "/config.json"
 
 msgs = []
